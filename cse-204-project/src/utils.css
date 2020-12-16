@@ -1,0 +1,9 @@
+.content-wrapper{
+    max-width: 1200px;
+    height: 100%;
+    margin: auto;
+}
+
+.text{
+    font-family: sans-serif;
+}

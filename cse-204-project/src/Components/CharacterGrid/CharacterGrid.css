@@ -1,0 +1,7 @@
+.character-grid-container{
+    display: grid;
+    /* TODO: fix this when resizing */
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+}
+

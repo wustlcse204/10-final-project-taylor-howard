@@ -1,0 +1,15 @@
+.character-image{
+    display: block;
+    margin: auto;
+    border-radius: 1rem;
+    width: 90%;
+}
+
+.character-card-wrapper{
+    margin: 1rem 0;
+}
+
+.character-image:hover{
+    opacity: 75%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
