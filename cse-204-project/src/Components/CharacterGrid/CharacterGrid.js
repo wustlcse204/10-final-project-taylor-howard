@@ -3,9 +3,9 @@ import React, { Fragment, useEffect, useState } from 'react';
 import './CharacterGrid.css';
 import '../../utils.css';
 import CharacterCard from '../CharacterCard/CharacterCard';
+import DetailsPage from '../DetailsPage/DetailsPage.js';
 
 export default function CharacterGrid() {
-  //TODO: separate list for smash4 and ultimate characters
   const [universalCharacters, setUniversalCharacters] = useState([]);
   const [ultimateCharacters, setUltimateCharacters] = useState([]);
 
@@ -26,7 +26,6 @@ export default function CharacterGrid() {
 
     const smash4url = 'https://api.kuroganehammer.com/api/characters';
 
-    let characterList = [];
     smash4xhttp.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
         const universalCharacterResponse = JSON.parse(this.responseText);
@@ -48,7 +47,7 @@ export default function CharacterGrid() {
     ultimatexhttp.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
         const ultimateCharacterResponse = JSON.parse(this.responseText);
-        setUltimateCharacters(ultimateCharacterResponse)
+        setUltimateCharacters(ultimateCharacterResponse);
       }
     };
 
@@ -58,84 +57,108 @@ export default function CharacterGrid() {
 
   //create a list of all characters without overlap
   useEffect(() => {
-    console.log(ultimateCharacters)
-    console.log(universalCharacters)
     setAllCharacters([]);
-    let characterList = universalCharacters;
+    let characterList = [...universalCharacters];
 
     for (const character of ultimateCharacters) {
-      // console.log(charact)
-      if (character.OwnerId > characterList.length) {
+      //This value is hard coded because the api is out of order. Every character with an id of 58 or higher is onlyh on teh ultimate list
+      if (character.OwnerId >= 59) {
         characterList.push(character);
       }
     }
     setAllCharacters(characterList);
   }, [ultimateCharacters, universalCharacters]);
 
+  function hideDetailScreen() {
+    setDisplayDetailscreen(false);
+  }
 
-  //TODO: Fetch character lists
+  function nextCharacter() {
+    if (currentlySelectedCharacter < allCharacters.length - 1) {
+      setSelectedCharacter(currentlySelectedCharacter + 1);
+    } else {
+      setSelectedCharacter(0);
+    }
+  }
+
+  function lastCharacter() {
+    if (currentlySelectedCharacter > 0) {
+      setSelectedCharacter(currentlySelectedCharacter - 1);
+    } else {
+      setSelectedCharacter(allCharacters.length - 1);
+    }
+  }
+
   return (
     //TODO: add sort options
     //TODO: add details pop option
     <Fragment>
       <div className="character-grid-container">
-        {
-          //TODO: make a separate list for smash 4 and ultimate characters
-          universalCharacters.map((character) => (
-            // <p key={character.OwnerId}>{character.Name}</p>
-            <CharacterCard
-              characterName={character.Name}
-              imageURL={character.ThumbnailUrl}
-              universalCharacter={true}
-            />
-          ))
-        }
+        {universalCharacters.map((character, index) => (
+          // <p key={character.OwnerId}>{character.Name}</p>
+          <CharacterCard
+            key={character.OwnerId}
+            characterName={character.Name}
+            imageURL={character.ThumbnailUrl}
+            universalCharacter={true}
+            index={index}
+            setDisplayState={setDisplayDetailscreen}
+            currentCharacter={setSelectedCharacter}
+          />
+        ))}
       </div>
-      <h1 className="text">New in Smash Ultimate!</h1>
+      {
+        //TODO: show loading spinner
+        //TODO: only divide with certain sorting methods
+      }
+      {allCharacters.length > 0 ? <h1 className="text">New in Smash Ultimate!</h1> : <p>loading</p>}
       <div className="character-grid-container">
-        {
-          //TODO: make a separate list for smash 4 and ultimate characters
-          ultimateCharacters.map((character) => {
-            if (character.OwnerId > universalCharacters.length) {
-              return (
-                <CharacterCard
-                  characterName={character.Name}
-                  imageURL={character.ThumbnailUrl}
-                  universalCharacter={false}
-                />
-              );
-            }
-          })
-          // if(character.OwnerId < universalCharacters.length){
-          //     console.log(character)
-          // }
-          // (<CharacterCard characterName={character.Name} imageURL={character.ThumbnailUrl} />)
-        }
+        {ultimateCharacters.map((character, index) => {
+          if (character.OwnerId > universalCharacters.length) {
+            return (
+              <CharacterCard
+                key={character.OwnerId}
+                characterName={character.Name}
+                imageURL={character.ThumbnailUrl}
+                universalCharacter={false}
+                // This value is the number of characters in the smash list - the number of characters in both lists
+                index={index + 35}
+                setDisplayState={setDisplayDetailscreen}
+                currentCharacter={setSelectedCharacter}
+              />
+            );
+          }
+        })}
       </div>
 
-      {/* TODO: make slideshow using hooks */}
-      {/* TODO: set visibility based on state hook */}
       <div
         className={`character-detail-page-container${displayDetailScreen ? '-showing' : '-hidden'}`}
       >
-        {/* TODO: Fix on click */}
-        <i className="fas fa-times" id="exit-button" onclick="closeSlideshow()"></i>
+        <i className="fas fa-times" id="exit-button" onClick={hideDetailScreen}></i>
         <div className="slideshow" id="character-slideshow-wrapper">
+          {
+            //TODO: replace arrows with image of previous/next character
+          }
           <i
             className="fas fa-chevron-left arrow-buttons"
             id="back-slide-button"
-            onclick="lastImage()"
+            onClick={lastCharacter}
           ></i>
-          {/* TODO: Display info for selected character here, check that array is not empty before showingf */}
-          {/* <img src={allCharacters[currentlySelectedCharacter].ThumbnailUrl} /> */}
-          <img
+          {allCharacters.length > 0 ? (
+            <DetailsPage
+              ownerid={allCharacters[currentlySelectedCharacter].OwnerId}
+              characterName={allCharacters[currentlySelectedCharacter].DisplayName}
+              image={allCharacters[currentlySelectedCharacter].ThumbnailUrl}
+            />
+          ) : // <img src={allCharacters[currentlySelectedCharacter].ThumbnailUrl} />
+          null}
+          <i
             className="fas fa-chevron-right arrow-buttons"
             id="forward-slide-button"
-            onclick="nextImage()"
-          ></img>
+            onClick={nextCharacter}
+          ></i>
         </div>
       </div>
     </Fragment>
-    //TODO: make the slideshow
   );
 }
