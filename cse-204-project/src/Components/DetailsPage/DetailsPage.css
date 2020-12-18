@@ -1,12 +1,14 @@
 .details-page-div{
-    background-color: white;
+    background-color: lightgray;
     width: 100%;
     min-height: 100vh;
+    border-radius: 2rem;
 }
 
 .detail-page-header{
     height: 400px;
     padding: 2rem;
+    border-radius: 2rem;
 }
 
 .detail-header-photo{
@@ -18,5 +20,26 @@
 }
 
 .detail-page-content{
-    
+    text-align: center;
+}
+
+.detail-list{
+    display: inline-block;
+    margin: 1rem;
+}
+
+.detail-category{
+    display: inline;
+    margin: 2rem;
+}
+
+.detail-category:hover{
+    cursor: pointer;
+    opacity: 75%;
+}
+
+.details-container{
+    background-color: white;
+    height: 200px;
+    border-radius: 2rem;
 }

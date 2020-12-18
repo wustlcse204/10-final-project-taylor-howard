@@ -14,7 +14,16 @@ export default function DetailsPage({ ownerid, characterName, image, hasUltimate
       <div className="detail-page-header" style={{ backgroundColor: color }}>
         <img src={image} alt={characterName} className="detail-header-photo" />
       </div>
-      <div className="detail-page-content"></div>
+      <div className="detail-page-content">
+        <ul className="detail-list">
+          <li className="detail-category text">Moves</li>
+          <li className="detail-category text">Movements</li>
+          <li className="detail-category text">Attributes</li>
+        </ul>
+        <div className="details-container">
+          <p>details</p>
+        </div>
+      </div>
     </div>
   );
 }
