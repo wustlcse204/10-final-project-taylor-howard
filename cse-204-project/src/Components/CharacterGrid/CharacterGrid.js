@@ -8,6 +8,7 @@ import DetailsPage from '../DetailsPage/DetailsPage.js';
 export default function CharacterGrid() {
   const [universalCharacters, setUniversalCharacters] = useState([]);
   const [ultimateCharacters, setUltimateCharacters] = useState([]);
+  const [ultimateOwnerIds, setUltimateOwnerIds] = useState([]);
 
   const [allCharacters, setAllCharacters] = useState([]);
 
@@ -69,6 +70,11 @@ export default function CharacterGrid() {
     setAllCharacters(characterList);
   }, [ultimateCharacters, universalCharacters]);
 
+  //create an array of the ownerids with ultimate data
+  useEffect(() => {
+    setUltimateOwnerIds(ultimateCharacters.map((character) => character.OwnerId));
+  }, [ultimateCharacters]);
+
   function hideDetailScreen() {
     setDisplayDetailscreen(false);
   }
@@ -91,6 +97,7 @@ export default function CharacterGrid() {
 
   return (
     //TODO: add sort options
+    //TODO: add filtering
     //TODO: add details pop option
     <Fragment>
       <div className="character-grid-container">
@@ -149,6 +156,12 @@ export default function CharacterGrid() {
               ownerid={allCharacters[currentlySelectedCharacter].OwnerId}
               characterName={allCharacters[currentlySelectedCharacter].DisplayName}
               image={allCharacters[currentlySelectedCharacter].ThumbnailUrl}
+              color={allCharacters[currentlySelectedCharacter].ColorTheme}
+              hasUltimateData={
+                ultimateOwnerIds.includes(allCharacters[currentlySelectedCharacter].OwnerId)
+                  ? true
+                  : false
+              }
             />
           ) : // <img src={allCharacters[currentlySelectedCharacter].ThumbnailUrl} />
           null}
