@@ -3,6 +3,11 @@
     margin: auto;
     border-radius: 1rem;
     width: 90%;
+    /* TODO: change to a calculation */
+    height: 150px;
+    object-fit: cover;
+    /* TODO: try to make this better */
+    object-position: 50% 20%;
 }
 
 .character-card-wrapper{
