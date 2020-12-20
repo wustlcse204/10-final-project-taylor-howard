@@ -4,24 +4,29 @@ import './CharacterCard.css';
 import '../../utils.css';
 
 export default function CharacterCard({
-  characterName,
-  imageURL,
-  index,
-  setDisplayState,
-  currentCharacter,
+    characterName,
+    imageURL,
+    index,
+    setDisplayState,
+    currentCharacter,
 }) {
-  // foo()
+    // foo()
 
-  function cardClicked() {
-    currentCharacter(index);
-    setDisplayState(true);
-  }
+    function cardClicked() {
+        currentCharacter(index);
+        setDisplayState(true);
+    }
 
-  // console.log(characterName + index);
-  //Todo: display character name if not a universal character
-  return (
-    <div className="character-card-wrapper">
-      <img className="character-image" src={imageURL} alt={characterName} onClick={cardClicked} />
-    </div>
-  );
+    // console.log(characterName + index);
+    //Todo: display character name if not a universal character
+    return (
+        <div className="character-card-wrapper">
+            <img
+                className="character-image"
+                src={imageURL}
+                alt={characterName}
+                onClick={cardClicked}
+            />
+        </div>
+    );
 }

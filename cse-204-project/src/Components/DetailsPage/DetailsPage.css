@@ -12,11 +12,15 @@
 }
 
 .detail-header-photo{
-    height: 100%;
-    width: auto;
+    /* height: 100%;
+    width: auto; */
     border-radius: 1rem;
     margin: auto;
     display: block;
+    width: 75%;
+    height: 90%;
+    object-fit: cover;
+    object-position: 50% 20%;
 }
 
 .detail-page-content{
@@ -42,4 +46,22 @@
     background-color: white;
     height: 200px;
     border-radius: 2rem;
+}
+
+.games-list{
+    display: inline-block;
+    margin: 1rem;
+}
+
+.game-list-item{
+    display: inline;
+    margin: 2rem;
+}
+
+.game-list-item:hover{
+    cursor: pointer;
+}
+
+.selected{
+    font-weight: bolder;
 }
