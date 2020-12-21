@@ -10,6 +10,10 @@
     height: 400px;
     padding: 2rem;
     border-radius: 2rem;
+    text-align: center;
+}
+.detail-page-character-title{
+    margin: 1rem 0 0 0;
 }
 
 .detail-header-photo{

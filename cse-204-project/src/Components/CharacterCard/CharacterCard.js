@@ -27,6 +27,7 @@ export default function CharacterCard({
                 alt={characterName}
                 onClick={cardClicked}
             />
+            <h2 className="text character-card-title">{characterName}</h2>
         </div>
     );
 }

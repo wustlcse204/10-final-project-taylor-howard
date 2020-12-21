@@ -4,7 +4,6 @@ import './DetailsPage.css';
 import '../../utils.css';
 import MoveDetails from '../MoveDetails/MoveDetails';
 import MovementDetails from '../MovementDetails/MovementDetails';
-import AttributesDetails from '../AttributesDetails/AttributesDetails';
 
 export default function DetailsPage({
     ownerid,
@@ -23,7 +22,6 @@ export default function DetailsPage({
 
     const apiBaseURL = '';
 
-    //TODO: show name
     //TODO: update we dont have this data message and styling
 
     //use effect to setgame
@@ -41,13 +39,13 @@ export default function DetailsPage({
 
     //use effect to set has details
     useEffect(() => {
-        if (game == 'smash4') {
+        if (game === 'smash4') {
             if (has4Data) {
                 setHasDetails(true);
             } else {
                 setHasDetails(false);
             }
-        } else if (game == 'ultimate') {
+        } else if (game === 'ultimate') {
             if (hasUltimateData) {
                 setHasDetails(true);
             } else {
@@ -57,10 +55,10 @@ export default function DetailsPage({
     }, [game]);
 
     useEffect(() => {
-        if (infoType == 'moves') {
+        if (infoType === 'moves') {
             const xhttpMovesData = new XMLHttpRequest();
             xhttpMovesData.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
+                if (this.readyState === 4 && this.status === 200) {
                     console.log(JSON.parse(this.responseText));
                     setMoveData(JSON.parse(this.responseText));
                 }
@@ -72,10 +70,10 @@ export default function DetailsPage({
                 true,
             );
             xhttpMovesData.send();
-        } else if (infoType == 'movements') {
+        } else if (infoType === 'movements') {
             const xhttpMovementsData = new XMLHttpRequest();
             xhttpMovementsData.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
+                if (this.readyState === 4 && this.status === 200) {
                     console.log(JSON.parse(this.responseText));
                     setMovementsData(JSON.parse(this.responseText));
                 }
@@ -94,12 +92,13 @@ export default function DetailsPage({
         <div className="details-page-div">
             <div className="detail-page-header" style={{ backgroundColor: color }}>
                 <img src={image} alt={characterName} className="detail-header-photo" />
+                <h2 className="text detail-page-character-title">{characterName}</h2>
             </div>
             <div className="detail-page-content">
                 <ul className="games-list">
                     <li
                         className={`game-list-item text ${
-                            game == 'smash4' ? 'selected' : 'unselected'
+                            game === 'smash4' ? 'selected' : 'unselected'
                         }`}
                         onClick={() => setGame('smash4')}
                     >
@@ -107,7 +106,7 @@ export default function DetailsPage({
                     </li>
                     <li
                         className={`game-list-item text ${
-                            game == 'ultimate' ? 'selected' : 'unselected'
+                            game === 'ultimate' ? 'selected' : 'unselected'
                         }`}
                         onClick={() => setGame('ultimate')}
                     >
@@ -115,11 +114,10 @@ export default function DetailsPage({
                     </li>
                 </ul>
                 <div className="details-container">
-                    {/* TODO: dont show this if the data is unavailable - mahybe*/}
                     <ul className="detail-list">
                         <li
                             className={`detail-category text ${
-                                infoType == 'moves' ? 'selected' : 'unselected'
+                                infoType === 'moves' ? 'selected' : 'unselected'
                             }`}
                             onClick={() => setInfoType('moves')}
                         >
@@ -127,14 +125,14 @@ export default function DetailsPage({
                         </li>
                         <li
                             className={`detail-category text ${
-                                infoType == 'movements' ? 'selected' : 'unselected'
+                                infoType === 'movements' ? 'selected' : 'unselected'
                             }`}
                             onClick={() => setInfoType('movements')}
                         >
                             Movement Attributes
                         </li>
                     </ul>
-                    {hasDetails == false && (
+                    {hasDetails === false && (
                         <h1>We do not have this characters data for this game</h1>
                     )}
 
