@@ -4,6 +4,16 @@
     /* min-height: 100vh; */
     border-radius: 2rem;
     /* padding: 2rem; */
+    max-height: 100vh;
+    overflow: scroll;
+    /* TODO: remove scroll bars */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
+.details-page-div::-webkit-scrollbar{
+    display: none;
 }
 
 .detail-page-header{
@@ -67,4 +77,3 @@
     cursor: pointer;
     opacity: 75%;
 }
-
