@@ -18,9 +18,6 @@ export default function DetailsPage({
     const [infoType, setInfoType] = useState('moves');
     const [moveData, setMoveData] = useState();
     const [movementsData, setMovementsData] = useState();
-    const [attributesData, setAttributesData] = useState();
-
-    const apiBaseURL = '';
 
     //TODO: update we dont have this data message and styling
 
@@ -29,7 +26,6 @@ export default function DetailsPage({
         //clear data when character changes
         setMoveData([]);
         setMovementsData([]);
-        setAttributesData([]);
         if (hasUltimateData) {
             setGame('ultimate');
         } else {
@@ -59,7 +55,6 @@ export default function DetailsPage({
             const xhttpMovesData = new XMLHttpRequest();
             xhttpMovesData.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
-                    console.log(JSON.parse(this.responseText));
                     setMoveData(JSON.parse(this.responseText));
                 }
             };
@@ -74,7 +69,6 @@ export default function DetailsPage({
             const xhttpMovementsData = new XMLHttpRequest();
             xhttpMovementsData.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
-                    console.log(JSON.parse(this.responseText));
                     setMovementsData(JSON.parse(this.responseText));
                 }
             };

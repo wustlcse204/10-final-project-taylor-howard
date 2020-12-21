@@ -8,13 +8,16 @@ import DetailsPage from '../DetailsPage/DetailsPage.js';
 export default function CharacterGrid() {
     const [universalCharacters, setUniversalCharacters] = useState([]);
     const [ultimateCharacters, setUltimateCharacters] = useState([]);
+    const [newCharacters, setNewCharacters] = useState([]);
     const [ultimateOwnerIds, setUltimateOwnerIds] = useState([]);
 
     const [allCharacters, setAllCharacters] = useState([]);
+    const [displayedCharacters, setDisplayedCharacters] = useState([]);
 
     const [currentlySelectedCharacter, setSelectedCharacter] = useState(0);
     const [displayDetailScreen, setDisplayDetailscreen] = useState(false);
-    // const [sortBy, setSortedBy] = sortBy("id")
+    const [sortBy, setSortedBy] = useState('ida');
+    const [filter, setFilter] = useState('all');
 
     //get characters with smash 4 data
     useEffect(() => {
@@ -37,6 +40,8 @@ export default function CharacterGrid() {
 
         smash4xhttp.open('Get', smash4url, true);
         smash4xhttp.send();
+
+        setDisplayedCharacters(allCharacters);
     }, []);
 
     //get characters with ultimate data
@@ -72,7 +77,54 @@ export default function CharacterGrid() {
     //create an array of the ownerids with ultimate data
     useEffect(() => {
         setUltimateOwnerIds(ultimateCharacters.map((character) => character.OwnerId));
+
+        let newInUltimate = [];
+        for (const character of ultimateCharacters) {
+            if (character.OwnerId >= 59) {
+                newInUltimate.push(character);
+            }
+        }
+        setNewCharacters(newInUltimate);
     }, [ultimateCharacters]);
+
+    useEffect(() => {
+        if (filter == 'all') {
+            setDisplayedCharacters(allCharacters);
+        } else if (filter === 'smash4') {
+            setDisplayedCharacters(universalCharacters);
+        } else if (filter === 'ultimate') {
+            setDisplayedCharacters(ultimateCharacters);
+        } else if (filter === 'new') {
+            setDisplayedCharacters(newCharacters);
+        }
+    }, [allCharacters, ultimateCharacters, universalCharacters, filter]);
+
+    useEffect(() => {
+        //update the order of characters
+        if (sortBy === 'ida') {
+            const sorted = [...displayedCharacters].sort((a, b) => {
+                return a.OwnerId > b.OwnerId;
+            });
+            setDisplayedCharacters(sorted);
+        } else if (sortBy === 'idd') {
+            const sorted = [...displayedCharacters].sort((a, b) => {
+                return a.OwnerId < b.OwnerId;
+            });
+            setDisplayedCharacters(sorted);
+        } else if (sortBy == 'A-Z') {
+            const sorted = [...displayedCharacters].sort((a, b) => {
+                return a.Name.toLowerCase().localeCompare(b.Name.toLowerCase());
+            });
+            setDisplayedCharacters(sorted);
+        } else if (sortBy == 'Z-A') {
+            const sorted = [...displayedCharacters]
+                .sort((a, b) => {
+                    return a.Name.toLowerCase().localeCompare(b.Name.toLowerCase());
+                })
+                .reverse();
+            setDisplayedCharacters(sorted);
+        }
+    }, [sortBy]);
 
     function hideDetailScreen() {
         setDisplayDetailscreen(false);
@@ -94,48 +146,79 @@ export default function CharacterGrid() {
         }
     }
 
+    const changeFilter = (e) => {
+        setFilter(e.target.value);
+    };
+
+    const changeSort = (e) => {
+        setSortedBy(e.target.value);
+    };
+
     return (
         //TODO: add sort options
         //TODO: add filtering
         //TODO: add backup image
         <Fragment>
+            <div className="character-filter-sort-div">
+                <select
+                    name="filter"
+                    id="filter-input"
+                    className="text dropdown"
+                    onChange={changeFilter}
+                >
+                    <option className="filter-choice" value="all">
+                        All
+                    </option>
+                    <option className="filter-choice" value="smash4">
+                        Smash4
+                    </option>
+                    <option className="filter-choice" value="new">
+                        New in Ultimate
+                    </option>
+                    <option className="filter-choice" value="ultimate">
+                        Have Ultimate data
+                    </option>
+                </select>
+
+                <select
+                    name="sort-by"
+                    id="sort-input"
+                    className="text dropdown"
+                    onChange={changeSort}
+                >
+                    <option className="sort-choice" value="ida">
+                        ID Ascending
+                    </option>
+                    <option className="sort-choice" value="idd">
+                        ID Descending
+                    </option>
+                    <option className="sort-choice" value="A-Z">
+                        A-Z
+                    </option>
+                    <option className="sort-choice" value="Z-A">
+                        Z-A
+                    </option>
+                </select>
+            </div>
             <div className="character-grid-container">
-                {allCharacters.map((character, index) => (
-                    // <p key={character.OwnerId}>{character.Name}</p>
-                    <CharacterCard
-                        key={character.OwnerId}
-                        characterName={character.Name}
-                        imageURL={character.ThumbnailUrl}
-                        // universalCharacter={true}
-                        index={index}
-                        setDisplayState={setDisplayDetailscreen}
-                        currentCharacter={setSelectedCharacter}
-                    />
-                ))}
+                {displayedCharacters.length > 0 ? (
+                    displayedCharacters.map((character, index) => (
+                        <CharacterCard
+                            key={character.OwnerId}
+                            characterName={character.DisplayName}
+                            imageURL={character.ThumbnailUrl}
+                            index={index}
+                            setDisplayState={setDisplayDetailscreen}
+                            currentCharacter={setSelectedCharacter}
+                        />
+                    ))
+                ) : (
+                    <p>loading</p>
+                )}
             </div>
             {
                 //TODO: show loading spinner
             }
-            {/* {allCharacters.length > 0 ? <h1 className="text">New in Smash Ultimate!</h1> : <p>loading</p>}
-      <div className="character-grid-container">
-        {ultimateCharacters.map((character, index) => {
-          if (character.OwnerId > universalCharacters.length) {
-            return (
-              <CharacterCard
-                key={character.OwnerId}
-                characterName={character.Name}
-                imageURL={character.ThumbnailUrl}
-                universalCharacter={false}
-                // This value is the number of characters in the smash list - the number of characters in both lists
-                index={index + 35}
-                setDisplayState={setDisplayDetailscreen}
-                currentCharacter={setSelectedCharacter}
-              />
-            );
-          }
-        })}
-      </div> */}
-
             <div
                 className={`character-detail-page-container${
                     displayDetailScreen ? '-showing' : '-hidden'
@@ -151,27 +234,28 @@ export default function CharacterGrid() {
                         id="back-slide-button"
                         onClick={lastCharacter}
                     ></i>
-                    {allCharacters.length > 0 ? (
+                    {displayedCharacters.length > 0 && (
                         <DetailsPage
-                            ownerid={allCharacters[currentlySelectedCharacter].OwnerId}
-                            characterName={allCharacters[currentlySelectedCharacter].DisplayName}
-                            image={allCharacters[currentlySelectedCharacter].ThumbnailUrl}
-                            color={allCharacters[currentlySelectedCharacter].ColorTheme}
+                            ownerid={displayedCharacters[currentlySelectedCharacter].OwnerId}
+                            characterName={
+                                displayedCharacters[currentlySelectedCharacter].DisplayName
+                            }
+                            image={displayedCharacters[currentlySelectedCharacter].ThumbnailUrl}
+                            color={displayedCharacters[currentlySelectedCharacter].ColorTheme}
                             hasUltimateData={
                                 ultimateOwnerIds.includes(
-                                    allCharacters[currentlySelectedCharacter].OwnerId,
+                                    displayedCharacters[currentlySelectedCharacter].OwnerId,
                                 )
                                     ? true
                                     : false
                             }
                             has4Data={
-                                allCharacters[currentlySelectedCharacter].OwnerId < 59
+                                displayedCharacters[currentlySelectedCharacter].OwnerId < 59
                                     ? true
                                     : false
                             }
                         />
-                    ) : // <img src={allCharacters[currentlySelectedCharacter].ThumbnailUrl} />
-                    null}
+                    )}
                     <i
                         className="fas fa-chevron-right arrow-buttons"
                         id="forward-slide-button"

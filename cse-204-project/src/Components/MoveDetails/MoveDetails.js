@@ -27,12 +27,6 @@ export default function MoveDetails({ data, color }) {
             setLoading(false);
         }
     }, [data]);
-
-    console.log('start');
-    console.log(groundMoves);
-    console.log(aerialMoves);
-    console.log(specialMoves);
-    console.log(throwMoves);
     //TODO: add a loading spinner
     return (
         <div className="move-details-wrapper" style={{ backgroundColor: color }}>

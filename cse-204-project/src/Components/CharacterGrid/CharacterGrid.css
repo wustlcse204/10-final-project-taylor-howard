@@ -25,7 +25,10 @@
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.75);
+
 }
+
+
 
 
 
@@ -82,4 +85,11 @@
     object-fit: cover;
     width: 100%;
     height: auto;
+}
+
+.character-filter-sort-div{
+    padding: 0 10px;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
 }
