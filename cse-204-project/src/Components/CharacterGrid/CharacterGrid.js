@@ -19,6 +19,8 @@ export default function CharacterGrid() {
     const [sortBy, setSortedBy] = useState('ida');
     const [filter, setFilter] = useState('all');
 
+    const [sortCounter, setSortCounter] = useState(0);
+
     //get characters with smash 4 data
     useEffect(() => {
         //because of some limitations on the api, not all characters have info for the newest game (smash ultimate)
@@ -88,7 +90,7 @@ export default function CharacterGrid() {
     }, [ultimateCharacters]);
 
     useEffect(() => {
-        if (filter == 'all') {
+        if (filter === 'all') {
             setDisplayedCharacters(allCharacters);
         } else if (filter === 'smash4') {
             setDisplayedCharacters(universalCharacters);
@@ -97,6 +99,8 @@ export default function CharacterGrid() {
         } else if (filter === 'new') {
             setDisplayedCharacters(newCharacters);
         }
+
+        setSortCounter(sortCounter + 1);
     }, [allCharacters, ultimateCharacters, universalCharacters, filter]);
 
     useEffect(() => {
@@ -111,12 +115,12 @@ export default function CharacterGrid() {
                 return a.OwnerId < b.OwnerId;
             });
             setDisplayedCharacters(sorted);
-        } else if (sortBy == 'A-Z') {
+        } else if (sortBy === 'A-Z') {
             const sorted = [...displayedCharacters].sort((a, b) => {
                 return a.Name.toLowerCase().localeCompare(b.Name.toLowerCase());
             });
             setDisplayedCharacters(sorted);
-        } else if (sortBy == 'Z-A') {
+        } else if (sortBy === 'Z-A') {
             const sorted = [...displayedCharacters]
                 .sort((a, b) => {
                     return a.Name.toLowerCase().localeCompare(b.Name.toLowerCase());
@@ -124,7 +128,7 @@ export default function CharacterGrid() {
                 .reverse();
             setDisplayedCharacters(sorted);
         }
-    }, [sortBy]);
+    }, [sortBy, sortCounter]);
 
     function hideDetailScreen() {
         setDisplayDetailscreen(false);
