@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import './DetailsPage.css';
 import '../../utils.css';
+import MoveDetails from '../MoveDetails/MoveDetails';
+import MovementDetails from '../MovementDetails/MovementDetails';
+import AttributesDetails from '../AttributesDetails/AttributesDetails';
 
 export default function DetailsPage({
     ownerid,
@@ -21,9 +24,14 @@ export default function DetailsPage({
     const apiBaseURL = '';
 
     //TODO: show name
+    //TODO: update we dont have this data message and styling
 
     //use effect to setgame
     useEffect(() => {
+        //clear data when character changes
+        setMoveData([]);
+        setMovementsData([]);
+        setAttributesData([]);
         if (hasUltimateData) {
             setGame('ultimate');
         } else {
@@ -79,21 +87,6 @@ export default function DetailsPage({
                 true,
             );
             xhttpMovementsData.send();
-        } else if (infoType == 'attributes') {
-            const xhttpAttributesData = new XMLHttpRequest();
-            xhttpAttributesData.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    console.log(JSON.parse(this.responseText));
-                    setAttributesData(JSON.parse(this.responseText));
-                }
-            };
-
-            xhttpAttributesData.open(
-                'GET',
-                `https://api.kuroganehammer.com/api/characters/${ownerid}/characterattributes?game=${game}`,
-                true,
-            );
-            xhttpAttributesData.send();
         }
     }, [infoType, game, characterName]);
 
@@ -139,20 +132,20 @@ export default function DetailsPage({
                             }`}
                             onClick={() => setInfoType('movements')}
                         >
-                            Movements
-                        </li>
-                        <li
-                            className={`detail-category text ${
-                                infoType == 'attributes' ? 'selected' : 'unselected'
-                            }`}
-                            onClick={() => setInfoType('attributes')}
-                        >
-                            Attributes
+                            Movement Attributes
                         </li>
                     </ul>
                     {/* TODO: create a table component, show it conditionally based on hasDetails */}
                     {hasDetails == false && (
                         <h1>We do not have this characters data for this game</h1>
+                    )}
+
+                    {hasDetails && infoType === 'moves' && (
+                        <MoveDetails data={moveData} color={color} />
+                    )}
+
+                    {hasDetails && infoType === 'movements' && (
+                        <MovementDetails data={movementsData} color={color} />
                     )}
                 </div>
             </div>
