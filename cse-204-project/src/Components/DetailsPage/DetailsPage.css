@@ -61,8 +61,6 @@
 
 .game-list-item:hover{
     cursor: pointer;
+    opacity: 75%;
 }
 
-.selected{
-    font-weight: bolder;
-}

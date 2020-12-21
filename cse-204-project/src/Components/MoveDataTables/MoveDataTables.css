@@ -1,10 +1,31 @@
-table, th, td{
-    padding: 1rem;
+.moves-data-table, .moves-th, .moves-td{
+    padding: 0.5rem;
     border: 1px black solid;
     /* border-radius: 2rem; */
     border-collapse: collapse;
 }
 
-table{
+.moves-data-table{
+    border: none !important;
     margin: 1rem auto;
+    display: inline-block;
+    max-height: 250px;
+    overflow: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+/* tbody{
+    display: block;
+    max-height: 200px;
+    overflow: hidden;
+} */
+
+table::-webkit-scrollbar{
+    display: none;
+}
+
+.move-title{
+    margin: 0;
+}
+

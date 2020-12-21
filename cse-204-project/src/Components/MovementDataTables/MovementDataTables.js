@@ -1,19 +1,25 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
 import './MovementDataTables.css';
 import '../../utils.css';
 
-export default function MovementDataTables() {
+export default function MovementDataTables({ data }) {
+    // const [attributeIndex, setAttributeIndex] = useState(0);
+
     return (
-        <Fragment>
-            <h1 className="text">Movement Attributes</h1>
-            <table>
-                <thead>
-                    <th>Attribute</th>
-                    <th>Value</th>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </Fragment>
+        <table>
+            <thead>
+                <th>Attribute</th>
+                <th>Value</th>
+            </thead>
+            <tbody>
+                {data.map((attribute, index) => (
+                    <tr key={index}>
+                        <td>{attribute.Name}</td>
+                        <td>{attribute.Value}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
     );
 }
