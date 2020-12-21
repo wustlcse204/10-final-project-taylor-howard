@@ -14,10 +14,13 @@ export default function DetailsPage({
     const [game, setGame] = useState('smash4');
     const [hasDetails, setHasDetails] = useState(true);
     const [infoType, setInfoType] = useState('moves');
+    const [moveData, setMoveData] = useState();
+    const [movementsData, setMovementsData] = useState();
+    const [attributesData, setAttributesData] = useState();
 
-    //TODO: Make api request for data
-    //TODO: show name if an ultimate character[]
-    //TODO: compare owner id to 59 to see if smash4 data exists
+    const apiBaseURL = '';
+
+    //TODO: show name
 
     //use effect to setgame
     useEffect(() => {
@@ -26,7 +29,6 @@ export default function DetailsPage({
         } else {
             setGame('smash4');
         }
-        console.log('here');
     }, [characterName]);
 
     //use effect to set has details
@@ -45,6 +47,55 @@ export default function DetailsPage({
             }
         }
     }, [game]);
+
+    useEffect(() => {
+        if (infoType == 'moves') {
+            const xhttpMovesData = new XMLHttpRequest();
+            xhttpMovesData.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(JSON.parse(this.responseText));
+                    setMoveData(JSON.parse(this.responseText));
+                }
+            };
+
+            xhttpMovesData.open(
+                'GET',
+                `https://api.kuroganehammer.com/api/characters/${ownerid}/moves?game=${game}`,
+                true,
+            );
+            xhttpMovesData.send();
+        } else if (infoType == 'movements') {
+            const xhttpMovementsData = new XMLHttpRequest();
+            xhttpMovementsData.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(JSON.parse(this.responseText));
+                    setMovementsData(JSON.parse(this.responseText));
+                }
+            };
+
+            xhttpMovementsData.open(
+                'GET',
+                `https://api.kuroganehammer.com/api/characters/${ownerid}/movements?game=${game}`,
+                true,
+            );
+            xhttpMovementsData.send();
+        } else if (infoType == 'attributes') {
+            const xhttpAttributesData = new XMLHttpRequest();
+            xhttpAttributesData.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(JSON.parse(this.responseText));
+                    setAttributesData(JSON.parse(this.responseText));
+                }
+            };
+
+            xhttpAttributesData.open(
+                'GET',
+                `https://api.kuroganehammer.com/api/characters/${ownerid}/characterattributes?game=${game}`,
+                true,
+            );
+            xhttpAttributesData.send();
+        }
+    }, [infoType, game, characterName]);
 
     return (
         <div className="details-page-div">
@@ -100,6 +151,9 @@ export default function DetailsPage({
                         </li>
                     </ul>
                     {/* TODO: create a table component, show it conditionally based on hasDetails */}
+                    {hasDetails == false && (
+                        <h1>We do not have this characters data for this game</h1>
+                    )}
                 </div>
             </div>
         </div>
