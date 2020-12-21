@@ -14,7 +14,6 @@ export default function MovementDetails({ data, color }) {
             setLoading(false);
         }
     }, [data]);
-    //TODO: create and populate table
     //TODO: add a loading spinner
     console.log(data);
     return (

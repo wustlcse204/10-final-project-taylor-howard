@@ -18,7 +18,6 @@ export default function CharacterGrid() {
 
     //get characters with smash 4 data
     useEffect(() => {
-        //TODO: update this
         //because of some limitations on the api, not all characters have info for the newest game (smash ultimate)
         //characters without data for ultimate do not appear in the character list for the ultimate endpoint even though they are in the game
         //I'm solving this on the character list screen by getting all characters from smahs 4, and then appending the addiontal characters present in ultimate that werent in 4 (this works because all characters in 4 re also in ultimate)
@@ -98,7 +97,6 @@ export default function CharacterGrid() {
     return (
         //TODO: add sort options
         //TODO: add filtering
-        //TODO: add details pop option
         //TODO: add backup image
         <Fragment>
             <div className="character-grid-container">
@@ -117,7 +115,6 @@ export default function CharacterGrid() {
             </div>
             {
                 //TODO: show loading spinner
-                //TODO: only divide with certain sorting methods
             }
             {/* {allCharacters.length > 0 ? <h1 className="text">New in Smash Ultimate!</h1> : <p>loading</p>}
       <div className="character-grid-container">
@@ -147,7 +144,7 @@ export default function CharacterGrid() {
                 <i className="fas fa-times" id="exit-button" onClick={hideDetailScreen}></i>
                 <div className="slideshow" id="character-slideshow-wrapper">
                     {
-                        //TODO: replace arrows with image of previous/next character
+                        //TODO: replace arrows with image of previous/next character - maybe
                     }
                     <i
                         className="fas fa-chevron-left arrow-buttons"

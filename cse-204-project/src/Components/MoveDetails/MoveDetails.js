@@ -16,7 +16,6 @@ export default function MoveDetails({ data, color }) {
         if (data === undefined || data.length === 0) {
             setLoading(true);
         } else {
-            //TODO: set state here
             const ground = data.filter((move) => move.MoveType === 'ground');
             const aerial = data.filter((move) => move.MoveType === 'aerial');
             const special = data.filter((move) => move.MoveType === 'special');
@@ -34,8 +33,6 @@ export default function MoveDetails({ data, color }) {
     console.log(aerialMoves);
     console.log(specialMoves);
     console.log(throwMoves);
-    //TODO: create and populate tables
-    //TODO: divide data into ground, air, and special moves
     //TODO: add a loading spinner
     return (
         <div className="move-details-wrapper" style={{ backgroundColor: color }}>

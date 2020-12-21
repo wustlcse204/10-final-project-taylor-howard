@@ -97,7 +97,6 @@ export default function DetailsPage({
             </div>
             <div className="detail-page-content">
                 <ul className="games-list">
-                    {/* TODO: add a class for selected/not selected */}
                     <li
                         className={`game-list-item text ${
                             game == 'smash4' ? 'selected' : 'unselected'
@@ -116,7 +115,7 @@ export default function DetailsPage({
                     </li>
                 </ul>
                 <div className="details-container">
-                    {/* TODO: dont show this if the data is unavailable */}
+                    {/* TODO: dont show this if the data is unavailable - mahybe*/}
                     <ul className="detail-list">
                         <li
                             className={`detail-category text ${
@@ -135,7 +134,6 @@ export default function DetailsPage({
                             Movement Attributes
                         </li>
                     </ul>
-                    {/* TODO: create a table component, show it conditionally based on hasDetails */}
                     {hasDetails == false && (
                         <h1>We do not have this characters data for this game</h1>
                     )}
