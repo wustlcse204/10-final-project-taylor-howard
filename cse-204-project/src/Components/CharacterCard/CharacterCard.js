@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import './CharacterCard.css';
 import '../../utils.css';
+
+import fallbackImage from '../../user-solid.svg'
 
 export default function CharacterCard({
     characterName,
@@ -11,6 +13,7 @@ export default function CharacterCard({
     currentCharacter,
 }) {
     // foo()
+    const [url, setURL] = useState(imageURL)
 
     function cardClicked() {
         currentCharacter(index);
@@ -22,9 +25,11 @@ export default function CharacterCard({
         <div className="character-card-wrapper">
             <img
                 className="character-image"
-                src={imageURL}
+                src={url}
                 alt={characterName}
                 onClick={cardClicked}
+                onError={() => setURL(fallbackImage)}
+                style={{objectFit: url === fallbackImage ? "fill" : "cover"}}
             />
             <h2 className="text character-card-title">{characterName}</h2>
         </div>
