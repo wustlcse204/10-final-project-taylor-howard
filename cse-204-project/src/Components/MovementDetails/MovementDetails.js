@@ -14,10 +14,16 @@ export default function MovementDetails({ data, color }) {
             setLoading(false);
         }
     }, [data]);
-    console.log(data);
     return (
-        <div className={`${loading ? "loading-wrapper" : "movement-details-wrapper"}`} style={{ backgroundColor: color }}>
-            {loading ? <i class="fas fa-spinner loading-spinner"></i> : <MovementDataTables data={data} />}
+        <div
+            className={`${loading ? 'loading-wrapper' : 'movement-details-wrapper'}`}
+            style={{ backgroundColor: color }}
+        >
+            {loading ? (
+                <i class="fas fa-spinner loading-spinner"></i>
+            ) : (
+                <MovementDataTables data={data} />
+            )}
         </div>
     );
 }

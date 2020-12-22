@@ -89,7 +89,6 @@ export default function DetailsPage({
     useEffect(() => {
         setURL(image);
     }, [image]);
-    console.log(image);
     return (
         <div className="details-page-div">
             <div className="detail-page-header" style={{ backgroundColor: color }}>

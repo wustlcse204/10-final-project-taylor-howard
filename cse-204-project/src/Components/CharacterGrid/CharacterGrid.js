@@ -101,7 +101,6 @@ export default function CharacterGrid() {
 
     useEffect(() => {
         //update the order of characters
-        console.log(displayedCharacters);
         if (sortBy === 'ida') {
             const sorted = [...displayedCharacters].sort((a, b) => {
                 return a.OwnerId > b.OwnerId;
@@ -226,9 +225,6 @@ export default function CharacterGrid() {
             >
                 <i className="fas fa-times" id="exit-button" onClick={hideDetailScreen}></i>
                 <div className="slideshow" id="character-slideshow-wrapper">
-                    {
-                        // replace arrows with image of previous/next character - maybe
-                    }
                     <i
                         className="fas fa-chevron-left arrow-buttons"
                         id="back-slide-button"

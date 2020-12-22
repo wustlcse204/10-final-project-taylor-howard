@@ -4,15 +4,13 @@ import './MovementDataTables.css';
 import '../../utils.css';
 
 export default function MovementDataTables({ data }) {
-    // const [attributeIndex, setAttributeIndex] = useState(0);
-
     return (
         <table>
             <thead>
                 <tr>
                     <th>Attribute</th>
                     <th>Value</th>
-                </tr>   
+                </tr>
             </thead>
             <tbody>
                 {data.map((attribute, index) => (

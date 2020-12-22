@@ -18,8 +18,6 @@ export default function MoveDataTables({ groundMoves, aerialMoves, specialMoves,
                         <th className="moves-th">Base Knockback/Set Knockback</th>
                         <th className="moves-th">Knockback Growth</th>
                     </tr>
-                    
-                    {/* <th>Weight dependent</th> */}
                 </thead>
                 <tbody>
                     {groundMoves.map((move, index) => (
@@ -30,7 +28,6 @@ export default function MoveDataTables({ groundMoves, aerialMoves, specialMoves,
                             <td className="moves-td">{move.Angle}</td>
                             <td className="moves-td">{move.BaseKnockBackSetKnockback}</td>
                             <td className="moves-td">{move.KnockbackGrowth}</td>
-                            {/* <td>{move.IsWeightDependent}</td> */}
                         </tr>
                     ))}
                 </tbody>
@@ -48,8 +45,6 @@ export default function MoveDataTables({ groundMoves, aerialMoves, specialMoves,
                         <th className="moves-th">Base Knockback/Set Knockback</th>
                         <th className="moves-th">Landing Lag</th>
                     </tr>
-                    
-                    {/* <th>Weight dependent</th> */}
                 </thead>
                 <tbody>
                     {aerialMoves.map((move, index) => (
