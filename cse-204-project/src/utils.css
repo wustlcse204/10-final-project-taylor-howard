@@ -11,3 +11,12 @@
 .selected{
     font-weight: bolder;
 }
+
+.loading-spinner{
+    font-size: 4rem;
+}
+
+.loading-wrapper{
+    display: block;
+    text-align: center;
+}

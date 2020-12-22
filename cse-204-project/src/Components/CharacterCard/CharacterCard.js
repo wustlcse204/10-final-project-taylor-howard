@@ -18,7 +18,6 @@ export default function CharacterCard({
     }
 
     // console.log(characterName + index);
-    //Todo: display character name if not a universal character
     return (
         <div className="character-card-wrapper">
             <img

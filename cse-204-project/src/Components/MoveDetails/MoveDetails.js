@@ -27,11 +27,10 @@ export default function MoveDetails({ data, color }) {
             setLoading(false);
         }
     }, [data]);
-    //TODO: add a loading spinner
     return (
-        <div className="move-details-wrapper" style={{ backgroundColor: color }}>
+        <div className={`${loading ? "move-details-wrapper" : "loading-wrapper"}`} style={{ backgroundColor: color }}>
             {loading === true ? (
-                <p>loading</p>
+                <i class="fas fa-spinner loading-spinner"></i>
             ) : (
                 <MoveDataTables
                     groundMoves={groundMoves}
@@ -39,7 +38,6 @@ export default function MoveDetails({ data, color }) {
                     specialMoves={specialMoves}
                     throws={throwMoves}
                 />
-                // <p>done</p>
             )}
         </div>
     );

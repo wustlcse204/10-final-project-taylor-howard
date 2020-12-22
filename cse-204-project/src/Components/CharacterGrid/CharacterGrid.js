@@ -34,8 +34,6 @@ export default function CharacterGrid() {
         smash4xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 const universalCharacterResponse = JSON.parse(this.responseText);
-                // characterList = characterResponse
-                //Todo: request the characters from ultimate
                 setUniversalCharacters(universalCharacterResponse);
             }
         };
@@ -158,10 +156,8 @@ export default function CharacterGrid() {
     const changeSort = (e) => {
         setSortedBy(e.target.value);
     };
-    
+
     return (
-        //TODO: add sort options
-        //TODO: add filtering
         //TODO: add backup image
         <Fragment>
             <div className="character-filter-sort-div">
@@ -205,7 +201,7 @@ export default function CharacterGrid() {
                     </option>
                 </select>
             </div>
-            <div className="character-grid-container">
+            <div className={`${sortedCharacters.length > 0 ? "character-grid-container" : "loading-wrapper"}`}>
                 {sortedCharacters.length > 0 ? (
                     sortedCharacters.map((character, index) => (
                         <CharacterCard
@@ -218,11 +214,10 @@ export default function CharacterGrid() {
                         />
                     ))
                 ) : (
-                    <p>loading</p>
+                    <i class="fas fa-spinner loading-spinner"></i>
                 )}
             </div>
             {
-                //TODO: show loading spinner
             }
             <div
                 className={`character-detail-page-container${
@@ -232,7 +227,7 @@ export default function CharacterGrid() {
                 <i className="fas fa-times" id="exit-button" onClick={hideDetailScreen}></i>
                 <div className="slideshow" id="character-slideshow-wrapper">
                     {
-                        //TODO: replace arrows with image of previous/next character - maybe
+                        // replace arrows with image of previous/next character - maybe
                     }
                     <i
                         className="fas fa-chevron-left arrow-buttons"
