@@ -13,13 +13,13 @@ export default function CharacterGrid() {
 
     const [allCharacters, setAllCharacters] = useState([]);
     const [displayedCharacters, setDisplayedCharacters] = useState([]);
+    const [sortedCharacters, setSortedCharacters] = useState([]);
 
     const [currentlySelectedCharacter, setSelectedCharacter] = useState(0);
     const [displayDetailScreen, setDisplayDetailscreen] = useState(false);
     const [sortBy, setSortedBy] = useState('ida');
     const [filter, setFilter] = useState('all');
 
-    const [sortCounter, setSortCounter] = useState(0);
 
     //get characters with smash 4 data
     useEffect(() => {
@@ -90,6 +90,7 @@ export default function CharacterGrid() {
     }, [ultimateCharacters]);
 
     useEffect(() => {
+      setSelectedCharacter(0);
         if (filter === 'all') {
             setDisplayedCharacters(allCharacters);
         } else if (filter === 'smash4') {
@@ -100,42 +101,42 @@ export default function CharacterGrid() {
             setDisplayedCharacters(newCharacters);
         }
 
-        setSortCounter(sortCounter + 1);
     }, [allCharacters, ultimateCharacters, universalCharacters, filter]);
 
     useEffect(() => {
         //update the order of characters
+        console.log(displayedCharacters)
         if (sortBy === 'ida') {
             const sorted = [...displayedCharacters].sort((a, b) => {
                 return a.OwnerId > b.OwnerId;
             });
-            setDisplayedCharacters(sorted);
+            setSortedCharacters(sorted);
         } else if (sortBy === 'idd') {
             const sorted = [...displayedCharacters].sort((a, b) => {
                 return a.OwnerId < b.OwnerId;
             });
-            setDisplayedCharacters(sorted);
+            setSortedCharacters(sorted);
         } else if (sortBy === 'A-Z') {
             const sorted = [...displayedCharacters].sort((a, b) => {
                 return a.Name.toLowerCase().localeCompare(b.Name.toLowerCase());
             });
-            setDisplayedCharacters(sorted);
+            setSortedCharacters(sorted);
         } else if (sortBy === 'Z-A') {
             const sorted = [...displayedCharacters]
                 .sort((a, b) => {
                     return a.Name.toLowerCase().localeCompare(b.Name.toLowerCase());
                 })
                 .reverse();
-            setDisplayedCharacters(sorted);
+                setSortedCharacters(sorted);
         }
-    }, [sortBy, sortCounter]);
+    }, [sortBy, displayedCharacters]);
 
     function hideDetailScreen() {
         setDisplayDetailscreen(false);
     }
 
     function nextCharacter() {
-        if (currentlySelectedCharacter < allCharacters.length - 1) {
+        if (currentlySelectedCharacter < sortedCharacters.length - 1) {
             setSelectedCharacter(currentlySelectedCharacter + 1);
         } else {
             setSelectedCharacter(0);
@@ -146,7 +147,7 @@ export default function CharacterGrid() {
         if (currentlySelectedCharacter > 0) {
             setSelectedCharacter(currentlySelectedCharacter - 1);
         } else {
-            setSelectedCharacter(allCharacters.length - 1);
+            setSelectedCharacter(sortedCharacters.length - 1);
         }
     }
 
@@ -157,7 +158,7 @@ export default function CharacterGrid() {
     const changeSort = (e) => {
         setSortedBy(e.target.value);
     };
-
+    
     return (
         //TODO: add sort options
         //TODO: add filtering
@@ -205,8 +206,8 @@ export default function CharacterGrid() {
                 </select>
             </div>
             <div className="character-grid-container">
-                {displayedCharacters.length > 0 ? (
-                    displayedCharacters.map((character, index) => (
+                {sortedCharacters.length > 0 ? (
+                    sortedCharacters.map((character, index) => (
                         <CharacterCard
                             key={character.OwnerId}
                             characterName={character.DisplayName}
@@ -238,23 +239,23 @@ export default function CharacterGrid() {
                         id="back-slide-button"
                         onClick={lastCharacter}
                     ></i>
-                    {displayedCharacters.length > 0 && (
+                    {sortedCharacters.length > 0 && (
                         <DetailsPage
-                            ownerid={displayedCharacters[currentlySelectedCharacter].OwnerId}
+                            ownerid={sortedCharacters[currentlySelectedCharacter].OwnerId}
                             characterName={
-                                displayedCharacters[currentlySelectedCharacter].DisplayName
+                              sortedCharacters[currentlySelectedCharacter].DisplayName
                             }
-                            image={displayedCharacters[currentlySelectedCharacter].ThumbnailUrl}
-                            color={displayedCharacters[currentlySelectedCharacter].ColorTheme}
+                            image={sortedCharacters[currentlySelectedCharacter].ThumbnailUrl}
+                            color={sortedCharacters[currentlySelectedCharacter].ColorTheme}
                             hasUltimateData={
                                 ultimateOwnerIds.includes(
-                                    displayedCharacters[currentlySelectedCharacter].OwnerId,
+                                  sortedCharacters[currentlySelectedCharacter].OwnerId,
                                 )
                                     ? true
                                     : false
                             }
                             has4Data={
-                                displayedCharacters[currentlySelectedCharacter].OwnerId < 59
+                              sortedCharacters[currentlySelectedCharacter].OwnerId < 59
                                     ? true
                                     : false
                             }

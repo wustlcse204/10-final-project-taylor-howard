@@ -9,8 +9,10 @@ export default function MovementDataTables({ data }) {
     return (
         <table>
             <thead>
-                <th>Attribute</th>
-                <th>Value</th>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Value</th>
+                </tr>   
             </thead>
             <tbody>
                 {data.map((attribute, index) => (

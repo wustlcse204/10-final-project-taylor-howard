@@ -10,12 +10,15 @@ export default function MoveDataTables({ groundMoves, aerialMoves, specialMoves,
 
             <table className="moves-data-table" id="ground-moves-table">
                 <thead>
-                    <th className="moves-th">Attack</th>
-                    <th className="moves-th">Hitbox Active</th>
-                    <th className="moves-th">Base Damage</th>
-                    <th className="moves-th">Angle</th>
-                    <th className="moves-th">Base Knockback/Set Knockback</th>
-                    <th className="moves-th">Knockback Growth</th>
+                    <tr>
+                        <th className="moves-th">Attack</th>
+                        <th className="moves-th">Hitbox Active</th>
+                        <th className="moves-th">Base Damage</th>
+                        <th className="moves-th">Angle</th>
+                        <th className="moves-th">Base Knockback/Set Knockback</th>
+                        <th className="moves-th">Knockback Growth</th>
+                    </tr>
+                    
                     {/* <th>Weight dependent</th> */}
                 </thead>
                 <tbody>
@@ -36,13 +39,16 @@ export default function MoveDataTables({ groundMoves, aerialMoves, specialMoves,
             <h1 className="move-title text">Aerial Attacks</h1>
             <table className="moves-data-table" id="aerial-moves-table">
                 <thead>
-                    <th className="moves-th">Attack</th>
-                    <th className="moves-th">Hitbox Active</th>
-                    <th className="moves-th">First Actionable Frame</th>
-                    <th className="moves-th">Base Damage</th>
-                    <th className="moves-th">Angle</th>
-                    <th className="moves-th">Base Knockback/Set Knockback</th>
-                    <th className="moves-th">Landing Lag</th>
+                    <tr>
+                        <th className="moves-th">Attack</th>
+                        <th className="moves-th">Hitbox Active</th>
+                        <th className="moves-th">First Actionable Frame</th>
+                        <th className="moves-th">Base Damage</th>
+                        <th className="moves-th">Angle</th>
+                        <th className="moves-th">Base Knockback/Set Knockback</th>
+                        <th className="moves-th">Landing Lag</th>
+                    </tr>
+                    
                     {/* <th>Weight dependent</th> */}
                 </thead>
                 <tbody>
@@ -62,13 +68,15 @@ export default function MoveDataTables({ groundMoves, aerialMoves, specialMoves,
             <h1 className="move-title text">Special Attacks</h1>
             <table className="moves-data-table" id="special-moves-table">
                 <thead>
-                    <th className="moves-th">Attack</th>
-                    <th className="moves-th">Hitbox Active</th>
-                    <th className="moves-th">First Active Frame</th>
-                    <th className="moves-th">Base Damage</th>
-                    <th className="moves-th">Angle</th>
-                    <th className="moves-th">Base Knockback/Set Knockback</th>
-                    <th className="moves-th">Knockback Growth</th>
+                    <tr>
+                        <th className="moves-th">Attack</th>
+                        <th className="moves-th">Hitbox Active</th>
+                        <th className="moves-th">First Active Frame</th>
+                        <th className="moves-th">Base Damage</th>
+                        <th className="moves-th">Angle</th>
+                        <th className="moves-th">Base Knockback/Set Knockback</th>
+                        <th className="moves-th">Knockback Growth</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {specialMoves.map((move, index) => (
@@ -88,11 +96,13 @@ export default function MoveDataTables({ groundMoves, aerialMoves, specialMoves,
 
             <table className="moves-data-table" id="throw-moves-table">
                 <thead>
-                    <th className="moves-th">Attack</th>
-                    <th className="moves-th">Base Damage</th>
-                    <th className="moves-th">Angle</th>
-                    <th className="moves-th">Base Knockback/Set Knockback</th>
-                    <th className="moves-th">Knockback Growth</th>
+                    <tr>
+                        <th className="moves-th">Attack</th>
+                        <th className="moves-th">Base Damage</th>
+                        <th className="moves-th">Angle</th>
+                        <th className="moves-th">Base Knockback/Set Knockback</th>
+                        <th className="moves-th">Knockback Growth</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {throws.map((move, index) => (
