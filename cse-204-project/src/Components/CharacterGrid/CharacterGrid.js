@@ -6,18 +6,29 @@ import CharacterCard from '../CharacterCard/CharacterCard';
 import DetailsPage from '../DetailsPage/DetailsPage.js';
 
 export default function CharacterGrid() {
+    //state arrays of characters.ids
+    //characters from boht games
     const [universalCharacters, setUniversalCharacters] = useState([]);
+    //characters in ultimate 
     const [ultimateCharacters, setUltimateCharacters] = useState([]);
+    //charcters in ultimte but not 4
     const [newCharacters, setNewCharacters] = useState([]);
+    //ids of characters in ltimate
     const [ultimateOwnerIds, setUltimateOwnerIds] = useState([]);
-
+    //all characters
     const [allCharacters, setAllCharacters] = useState([]);
+    //the currently displayed characters
     const [displayedCharacters, setDisplayedCharacters] = useState([]);
+    //the currently displayed characters sorted
     const [sortedCharacters, setSortedCharacters] = useState([]);
 
+    //the currenty selected character
     const [currentlySelectedCharacter, setSelectedCharacter] = useState(0);
+    //whether ornot detail are displayed
     const [displayDetailScreen, setDisplayDetailscreen] = useState(false);
+    //sort method
     const [sortBy, setSortedBy] = useState('ida');
+    //filter method
     const [filter, setFilter] = useState('all');
 
     //get characters with smash 4 data

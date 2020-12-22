@@ -15,12 +15,15 @@ export default function CharacterCard({
     const [url, setURL] = useState(imageURL);
 
     function cardClicked() {
+        //selects the character that was clicked and displays their detail page
+        //these functionsa come from teh character grid component
         currentCharacter(index);
         setDisplayState(true);
     }
 
     return (
         <div className="character-card-wrapper">
+            {/*  haacter image, sets url to fallback image when it fails to load */}
             <img
                 className="character-image"
                 src={url}
@@ -29,6 +32,7 @@ export default function CharacterCard({
                 onError={() => setURL(fallbackImage)}
                 style={{ objectFit: url === fallbackImage ? 'fill' : 'cover' }}
             />
+            {/* Character name */}
             <h2 className="text character-card-title">{characterName}</h2>
         </div>
     );
