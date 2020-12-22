@@ -9,6 +9,7 @@ function App() {
         <Fragment>
             <Navbar />
             <Main />
+            {/* TODO: add a footer */}
         </Fragment>
         // <div className="App">
         //   <header className="App-header">

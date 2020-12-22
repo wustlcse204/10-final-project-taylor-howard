@@ -5,6 +5,8 @@ import '../../utils.css';
 import MoveDetails from '../MoveDetails/MoveDetails';
 import MovementDetails from '../MovementDetails/MovementDetails';
 
+import FallbackImage from '../../user-solid.svg';
+
 export default function DetailsPage({
     ownerid,
     characterName,
@@ -18,6 +20,8 @@ export default function DetailsPage({
     const [infoType, setInfoType] = useState('moves');
     const [moveData, setMoveData] = useState();
     const [movementsData, setMovementsData] = useState();
+
+    const [url, setURL] = useState(image);
 
     //TODO: update we dont have this data message and styling
 
@@ -82,10 +86,20 @@ export default function DetailsPage({
         }
     }, [infoType, game, characterName]);
 
+    useEffect(() => {
+        setURL(image);
+    }, [image]);
+    console.log(image);
     return (
         <div className="details-page-div">
             <div className="detail-page-header" style={{ backgroundColor: color }}>
-                <img src={image} alt={characterName} className="detail-header-photo" />
+                <img
+                    src={url}
+                    alt={characterName}
+                    className="detail-header-photo"
+                    onError={() => setURL(FallbackImage)}
+                    style={{ objectFit: url === FallbackImage ? 'fill' : 'cover' }}
+                />
                 <h2 className="text detail-page-character-title">{characterName}</h2>
             </div>
             <div className="detail-page-content">

@@ -1,6 +1,5 @@
 .character-grid-container{
     display: grid;
-    /* TODO: fix this when resizing */
     grid-template-columns: 25% 25% 25% 25%;
     padding: 10px;
 }

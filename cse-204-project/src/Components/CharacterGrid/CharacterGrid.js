@@ -20,7 +20,6 @@ export default function CharacterGrid() {
     const [sortBy, setSortedBy] = useState('ida');
     const [filter, setFilter] = useState('all');
 
-
     //get characters with smash 4 data
     useEffect(() => {
         //because of some limitations on the api, not all characters have info for the newest game (smash ultimate)
@@ -88,7 +87,7 @@ export default function CharacterGrid() {
     }, [ultimateCharacters]);
 
     useEffect(() => {
-      setSelectedCharacter(0);
+        setSelectedCharacter(0);
         if (filter === 'all') {
             setDisplayedCharacters(allCharacters);
         } else if (filter === 'smash4') {
@@ -98,12 +97,11 @@ export default function CharacterGrid() {
         } else if (filter === 'new') {
             setDisplayedCharacters(newCharacters);
         }
-
     }, [allCharacters, ultimateCharacters, universalCharacters, filter]);
 
     useEffect(() => {
         //update the order of characters
-        console.log(displayedCharacters)
+        console.log(displayedCharacters);
         if (sortBy === 'ida') {
             const sorted = [...displayedCharacters].sort((a, b) => {
                 return a.OwnerId > b.OwnerId;
@@ -125,7 +123,7 @@ export default function CharacterGrid() {
                     return a.Name.toLowerCase().localeCompare(b.Name.toLowerCase());
                 })
                 .reverse();
-                setSortedCharacters(sorted);
+            setSortedCharacters(sorted);
         }
     }, [sortBy, displayedCharacters]);
 
@@ -158,7 +156,6 @@ export default function CharacterGrid() {
     };
 
     return (
-        //TODO: add backup image
         <Fragment>
             <div className="character-filter-sort-div">
                 <select
@@ -201,7 +198,11 @@ export default function CharacterGrid() {
                     </option>
                 </select>
             </div>
-            <div className={`${sortedCharacters.length > 0 ? "character-grid-container" : "loading-wrapper"}`}>
+            <div
+                className={`${
+                    sortedCharacters.length > 0 ? 'character-grid-container' : 'loading-wrapper'
+                }`}
+            >
                 {sortedCharacters.length > 0 ? (
                     sortedCharacters.map((character, index) => (
                         <CharacterCard
@@ -217,8 +218,7 @@ export default function CharacterGrid() {
                     <i class="fas fa-spinner loading-spinner"></i>
                 )}
             </div>
-            {
-            }
+            {}
             <div
                 className={`character-detail-page-container${
                     displayDetailScreen ? '-showing' : '-hidden'
@@ -237,20 +237,18 @@ export default function CharacterGrid() {
                     {sortedCharacters.length > 0 && (
                         <DetailsPage
                             ownerid={sortedCharacters[currentlySelectedCharacter].OwnerId}
-                            characterName={
-                              sortedCharacters[currentlySelectedCharacter].DisplayName
-                            }
+                            characterName={sortedCharacters[currentlySelectedCharacter].DisplayName}
                             image={sortedCharacters[currentlySelectedCharacter].ThumbnailUrl}
                             color={sortedCharacters[currentlySelectedCharacter].ColorTheme}
                             hasUltimateData={
                                 ultimateOwnerIds.includes(
-                                  sortedCharacters[currentlySelectedCharacter].OwnerId,
+                                    sortedCharacters[currentlySelectedCharacter].OwnerId,
                                 )
                                     ? true
                                     : false
                             }
                             has4Data={
-                              sortedCharacters[currentlySelectedCharacter].OwnerId < 59
+                                sortedCharacters[currentlySelectedCharacter].OwnerId < 59
                                     ? true
                                     : false
                             }
