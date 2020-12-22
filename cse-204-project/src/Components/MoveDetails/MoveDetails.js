@@ -28,7 +28,7 @@ export default function MoveDetails({ data, color }) {
         }
     }, [data]);
     return (
-        <div className={`${loading ? "move-details-wrapper" : "loading-wrapper"}`} style={{ backgroundColor: color }}>
+        <div className={`${loading ? "loading-wrapper" : "move-details-wrapper"}`} style={{ backgroundColor: color }}>
             {loading === true ? (
                 <i class="fas fa-spinner loading-spinner"></i>
             ) : (

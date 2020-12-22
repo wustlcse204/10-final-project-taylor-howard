@@ -16,7 +16,7 @@ export default function MovementDetails({ data, color }) {
     }, [data]);
     console.log(data);
     return (
-        <div className={`${loading ? "movement-details-wrapper" : "loading-wrapper"}`} style={{ backgroundColor: color }}>
+        <div className={`${loading ? "loading-wrapper" : "movement-details-wrapper"}`} style={{ backgroundColor: color }}>
             {loading ? <i class="fas fa-spinner loading-spinner"></i> : <MovementDataTables data={data} />}
         </div>
     );
