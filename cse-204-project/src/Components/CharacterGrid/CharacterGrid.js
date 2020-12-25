@@ -40,6 +40,7 @@ export default function CharacterGrid() {
         const smash4xhttp = new XMLHttpRequest();
 
         const smash4url = 'https://api.kuroganehammer.com/api/characters';
+        // data from kuroganehammer api: https://github.com/Frannsoft/FrannHammer/wiki
 
         smash4xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
