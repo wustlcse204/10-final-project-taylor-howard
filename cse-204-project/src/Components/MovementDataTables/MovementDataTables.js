@@ -5,6 +5,7 @@ import '../../utils.css';
 
 export default function MovementDataTables({ data }) {
     return (
+        // create a table and populate it with movement attributes
         <table>
             <thead>
                 <tr>

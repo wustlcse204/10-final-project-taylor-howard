@@ -54,7 +54,9 @@ export default function DetailsPage({
         }
     }, [game]);
 
+    ///get data when the info type changes, the game chnages, or the character changes
     useEffect(() => {
+        //data from kurgonehammer ap: https://github.com/Frannsoft/FrannHammer/wiki
         if (infoType === 'moves') {
             const xhttpMovesData = new XMLHttpRequest();
             xhttpMovesData.onreadystatechange = function () {
@@ -86,6 +88,7 @@ export default function DetailsPage({
         }
     }, [infoType, game, characterName]);
 
+    //set image url, this handles cases when the image fails to load as the url will be set to the fallback image
     useEffect(() => {
         setURL(image);
     }, [image]);
@@ -103,6 +106,7 @@ export default function DetailsPage({
             </div>
             <div className="detail-page-content">
                 <ul className="games-list">
+                    {/* optoins for games */}
                     <li
                         className={`game-list-item text ${
                             game === 'smash4' ? 'selected' : 'unselected'
@@ -122,6 +126,7 @@ export default function DetailsPage({
                 </ul>
                 <div className="details-container">
                     <ul className="detail-list">
+                        {/* options for info type */}
                         <li
                             className={`detail-category text ${
                                 infoType === 'moves' ? 'selected' : 'unselected'
@@ -142,7 +147,7 @@ export default function DetailsPage({
                     {hasDetails === false && (
                         <h1>We do not have this characters data for this game</h1>
                     )}
-
+                     {/* load the data for the desired info */}
                     {hasDetails && infoType === 'moves' && (
                         <MoveDetails data={moveData} color={color} />
                     )}

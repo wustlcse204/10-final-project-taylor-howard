@@ -89,6 +89,7 @@ export default function CharacterGrid() {
         setUltimateOwnerIds(ultimateCharacters.map((character) => character.OwnerId));
 
         let newInUltimate = [];
+        //chek tht character is new to ultimate, ids under 59 are in both games
         for (const character of ultimateCharacters) {
             if (character.OwnerId >= 59) {
                 newInUltimate.push(character);
@@ -97,6 +98,7 @@ export default function CharacterGrid() {
         setNewCharacters(newInUltimate);
     }, [ultimateCharacters]);
 
+    //set displayed characters when the charcters load in or the filter is changed
     useEffect(() => {
         setSelectedCharacter(0);
         if (filter === 'all') {
@@ -110,8 +112,9 @@ export default function CharacterGrid() {
         }
     }, [allCharacters, ultimateCharacters, universalCharacters, filter]);
 
+
     useEffect(() => {
-        //update the order of characters
+        //update the order of characters when sort by or displayed characters changes
         if (sortBy === 'ida') {
             const sorted = [...displayedCharacters].sort((a, b) => {
                 return a.OwnerId > b.OwnerId;
@@ -141,6 +144,7 @@ export default function CharacterGrid() {
         setDisplayDetailscreen(false);
     }
 
+    //cycle through the characters displayed by the dtails page
     function nextCharacter() {
         if (currentlySelectedCharacter < sortedCharacters.length - 1) {
             setSelectedCharacter(currentlySelectedCharacter + 1);
@@ -148,7 +152,7 @@ export default function CharacterGrid() {
             setSelectedCharacter(0);
         }
     }
-
+    //cycle through the characters displayed by the dtails page
     function lastCharacter() {
         if (currentlySelectedCharacter > 0) {
             setSelectedCharacter(currentlySelectedCharacter - 1);
@@ -157,10 +161,12 @@ export default function CharacterGrid() {
         }
     }
 
+    //update the filer
     const changeFilter = (e) => {
         setFilter(e.target.value);
     };
 
+    //update the sort method
     const changeSort = (e) => {
         setSortedBy(e.target.value);
     };
@@ -209,6 +215,7 @@ export default function CharacterGrid() {
                 </select>
             </div>
             <div
+            // populate the charater grid based on the sorted characters arry
                 className={`${
                     sortedCharacters.length > 0 ? 'character-grid-container' : 'loading-wrapper'
                 }`}
@@ -230,6 +237,7 @@ export default function CharacterGrid() {
             </div>
             {}
             <div
+            // Chagne class base don whether or not the detaisl shoudl be showing
                 className={`character-detail-page-container${
                     displayDetailScreen ? '-showing' : '-hidden'
                 }`}
@@ -241,6 +249,7 @@ export default function CharacterGrid() {
                         id="back-slide-button"
                         onClick={lastCharacter}
                     ></i>
+                    {/* create a detail page for each character */}
                     {sortedCharacters.length > 0 && (
                         <DetailsPage
                             ownerid={sortedCharacters[currentlySelectedCharacter].OwnerId}

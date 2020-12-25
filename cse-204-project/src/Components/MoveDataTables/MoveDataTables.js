@@ -4,6 +4,7 @@ import './MoveDataTables.css';
 import '../../utils.css';
 
 export default function MoveDataTables({ groundMoves, aerialMoves, specialMoves, throws }) {
+    // create and populate tables with the data passed to this omponent as props
     return (
         <Fragment>
             <h1 className="move-title text">Ground Attacks</h1>

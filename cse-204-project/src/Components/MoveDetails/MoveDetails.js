@@ -12,6 +12,7 @@ export default function MoveDetails({ data, color }) {
     const [specialMoves, setSpecialMoves] = useState([]);
     const [throwMoves, setThrowMoves] = useState([]);
 
+    // update the data values and whether the page is loading whenever the data values load in
     useEffect(() => {
         if (data === undefined || data.length === 0) {
             setLoading(true);
@@ -27,11 +28,13 @@ export default function MoveDetails({ data, color }) {
             setLoading(false);
         }
     }, [data]);
+
     return (
         <div className={`${loading ? "loading-wrapper" : "move-details-wrapper"}`} style={{ backgroundColor: color }}>
             {loading === true ? (
                 <i class="fas fa-spinner loading-spinner"></i>
             ) : (
+                // Load the data tables
                 <MoveDataTables
                     groundMoves={groundMoves}
                     aerialMoves={aerialMoves}
