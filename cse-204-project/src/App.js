@@ -9,7 +9,6 @@ function App() {
         <Fragment>
             <Navbar />
             <Main />
-            {/* TODO: add a footer */}
         </Fragment>
     );
 }

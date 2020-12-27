@@ -76,3 +76,9 @@
     cursor: pointer;
     opacity: 75%;
 }
+
+.no-data-message{
+    border-radius: 2rem;
+    margin: 1rem;
+    padding: 1rem;
+}

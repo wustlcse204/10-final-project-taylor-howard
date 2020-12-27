@@ -145,7 +145,7 @@ export default function DetailsPage({
                         </li>
                     </ul>
                     {hasDetails === false && (
-                        <h1>We do not have this characters data for this game</h1>
+                        <h1 className="no-data-message" style={{backgroundColor: color}}>We do not have this characters data for this game</h1>
                     )}
                      {/* load the data for the desired info */}
                     {hasDetails && infoType === 'moves' && (
